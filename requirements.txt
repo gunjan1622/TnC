@@ -1,2 +1,2 @@
 python-dotenv
-azure-ai-textanalytics==5.2.0b4
+azure-ai-textanalytics==5.3.0b1 
