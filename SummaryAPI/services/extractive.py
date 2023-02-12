@@ -4,7 +4,7 @@ from azure.ai.textanalytics import ExtractSummaryAction
 
 
 # Example method for summarizing text
-def sample_extractive_summarization(client,input_text, max_sentence_count):
+def extractive_summarization(client,input_text, max_sentence_count):
 
     poller = client.begin_analyze_actions(
         input_text,
@@ -33,4 +33,4 @@ input_text = [
         "In the public preview, extractive summarization supports several languages. It is based on pretrained multilingual transformer models, part of our quest for holistic representations. "
         "It draws its strength from transfer learning across monolingual and harness the shared nature of languages to produce models of improved quality and efficiency. "
     ]
-sample_extractive_summarization(client=DBConnection.get_client(),input_text=input_text, max_sentence_count=5)
+#extractive_summarization(client=DBConnection.get_client(),input_text=input_text, max_sentence_count=5)

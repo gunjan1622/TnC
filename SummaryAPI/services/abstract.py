@@ -8,7 +8,7 @@ from azure.ai.textanalytics import TextAnalyticsClient, AbstractSummaryAction
 endpoint = os.environ["ENDPOINT"]
 key = os.environ["API_KEY"]
 
-def sample_abstractive_summarization() -> None:
+def abstractive_summarization() -> None:
     
 
     text_analytics_client = TextAnalyticsClient(
@@ -53,6 +53,3 @@ def sample_abstractive_summarization() -> None:
                     result.code, result.message
                 ))
 
-
-if __name__ == "__main__":
-    sample_abstractive_summarization()
