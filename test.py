@@ -114,12 +114,6 @@ To extract keyphrases, simply set *keyphrase_ngram_range* to (1, 2) or higher de
             help="Tick this box to remove stop words from the document (currently English only)",
         )
 
-        use_MMR = st.checkbox(
-            "Use MMR",
-            value=True,
-            help="You can use Maximal Margin Relevance (MMR) to diversify the results. It creates keywords/keyphrases based on cosine similarity. Try high/low 'Diversity' settings below for interesting variations.",
-        )
-
         Diversity = st.slider(
             "Keyword diversity (MMR only)",
             value=0.5,

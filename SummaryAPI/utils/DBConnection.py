@@ -7,8 +7,8 @@ from azure.core.credentials import AzureKeyCredential
 from azure.ai.textanalytics import TextAnalyticsClient
 
 # Authenticate the client using your key and endpoint 
-key= os.environ.get("API_KEY")
-endpoint= os.environ.get("ENDPOINT") 
+key= os.environ["API_KEY"]
+endpoint= os.environ["ENDPOINT"] 
 def authenticate_client():
     ta_credential = AzureKeyCredential(key)
     text_analytics_client = TextAnalyticsClient(
@@ -16,9 +16,10 @@ def authenticate_client():
             credential=ta_credential)
     return text_analytics_client
 
-client = authenticate_client()
+
 
 class DBConnection:
+    client=authenticate_client()
     """DBConnection Class. It ensures only one instance of the class is 
        created and it is accessible from everywhere. It is used in the 
        design of logging classes, Configuration classes where we need to have 
@@ -39,7 +40,8 @@ class DBConnection:
         if DBConnection.__client is not None:
             raise Exception("This class is a singleton!")
         else:    
-            DBConnection.__client = authenticate_client()
+            # print(f"else client:{client}")
+            DBConnection.__client = DBConnection.client
             DBConnection.flag = True
 
     @staticmethod  # A static method is a method that is called without creating an instance of the class.

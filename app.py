@@ -1,17 +1,12 @@
-import os
-import json
-import numpy as np
-import pandas as pd
 import streamlit as st
 
-from SummaryAPI.utils import DBConnection
-from SummaryAPI.services.abstract import abstractive_summarization 
-from SummaryAPI.services.extractive import extractive_summarization
+from SummaryAPI.services.Summarization import Summarization
 
 st.set_page_config(
     page_title="The Fine Art of Summarization",
     page_icon="📝",
 )
+
 def _max_width_():
     max_width_str = f"max-width: 1400px;"
     st.markdown(
@@ -50,38 +45,64 @@ with st.expander("ℹ️ - About this app", expanded=True):
 
 st.markdown("")
 st.markdown("## **📌 Paste document **")
-with st.form(key="my_form"):
 
+with st.form(key="my_form"):
 
     ce, c1, ce, c2, c3 = st.columns([0.07, 1, 0.07, 5, 0.07])
     with c1:
         ModelType = st.radio(
             "Choose your model",
-            ["Abstractive Summary", "Extractive Summary"],
+            ["Extractive Summary", "Abstractive Summary"],
             help="At present, you can choose extractive summarization method. More to come!",
         )
-        
-        top_N = st.slider(
-            "# of results",
-            min_value=1,
-            max_value=30,
-            value=10,
-            help="You can choose the number of keywords/keyphrases to display. Between 1 and 30, default number is 10.",
-        )
 
-        if ModelType == "Default (Extractive))":
-            # kw_model = KeyBERT(model=roberta)
+        if ModelType == "Extractive Summary":
 
             @st.cache(allow_output_mutation=True)
             def load_model():
-                return extractive_summarization(client,input_text, max_sentence_count) 
-            kw_model = load_model()
+                return Summarization(model="Extractive")
+            summary_model = load_model()
 
         else:
             @st.cache(allow_output_mutation=True)
             def load_model():
-                return KeyBERT("distilbert-base-nli-mean-tokens")
+                return Summarization(model="Abstractive")
+            summary_model = load_model()
+            
 
-            kw_model = load_model()
+        max_sentence_count = st.slider(
+            "# of results",
+            min_value=1,
+            max_value=30,
+            value=2,
+            help="You can choose the maximum sentence count for the summary.",
+        )    
+
+    with c2:
+        doc = st.text_area(
+            "Paste your text below (max 500 words)",
+            height=510,
+        )
+
+        MAX_WORDS = 500
+        import re
+        res = len(re.findall(r"\w+", doc))
+        if res > MAX_WORDS:
+            st.warning(
+                "⚠️ Your text contains "
+                + str(res)
+                + " words."
+                + " Only the first 500 words will be reviewed. Stay tuned as increased allowance is coming! 😊"
+            )
+
+            doc = doc[:MAX_WORDS]
+
+        submit_button = st.form_submit_button(label="✨ Get me the data!")
+
+if not submit_button:
+    st.stop()    
+
+summary=summary_model.summarize(doc,max_sentence_count=max_sentence_count)              
+
 
         
