@@ -6,8 +6,6 @@ from SummaryAPI.utils.DBConnection import DBConnection
 from .extractive import extractive_summarization
 from .abstract import abstractive_summarization
 
-print(DBConnection.get_client())
-
 class Summarization:
     
         def __init__(

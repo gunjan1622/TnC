@@ -23,11 +23,11 @@ def _max_width_():
 
 _max_width_()
 
-c30, c31, c32 = st.columns([2.5, 1, 3])
+c30, c31, c32 = st.columns([50, 1, 3])
 
 with c30:
     # st.image("logo.png", width=400)
-    st.title("🔑 Summarization")
+    st.title("🧾 Terms and Conditions Summarization")
     st.header("")
 
 
@@ -35,16 +35,18 @@ with c30:
 with st.expander("ℹ️ - About this app", expanded=True):
 
     st.write(
-        """     
--   The *BERT Keyword Extractor* app is an easy-to-use interface built in Streamlit for the amazing [KeyBERT](https://github.com/MaartenGr/KeyBERT) library from Maarten Grootendorst!
--   It uses a minimal keyword extraction technique that leverages multiple NLP embeddings and relies on [Transformers] (https://huggingface.co/transformers/) 🤗 to create keywords/keyphrases that are most similar to a document.
+        """  
+- This app is a demo of the *Azure Text Analytics API*. This library contains the following features: Sentiment Analysis, Key Phrase Extraction, Named Entity Recognition, Language Detection, and Text Analytics. We are using the **Summarization** feature of the API.           
+- **Extractive summarization:** Produces a summary by extracting sentences that collectively represent the most important or relevant information within the original content.
+- **Abstractive summarization:** Produces a summary by generating summarized sentences from the document that capture the main idea.
+- The app is built using the [Azure Cognitive Service for Language API](https://learn.microsoft.com/en-in/azure/cognitive-services/language-service/) and [Streamlit](https://streamlit.io/).
 	    """
     )
 
     st.markdown("")
 
 st.markdown("")
-st.markdown("## **📌 Paste document **")
+st.markdown("## 📌 Paste document ")
 
 with st.form(key="my_form"):
 
@@ -53,7 +55,7 @@ with st.form(key="my_form"):
         ModelType = st.radio(
             "Choose your model",
             ["Extractive Summary", "Abstractive Summary"],
-            help="At present, you can choose extractive summarization method. More to come!",
+            help="At present, only extractive summarization method works. More to come as Microsoft will include more APIs!",
         )
 
         if ModelType == "Extractive Summary":
@@ -71,17 +73,17 @@ with st.form(key="my_form"):
             
 
         max_sentence_count = st.slider(
-            "# of results",
+            "Maximum sentence count",
             min_value=1,
-            max_value=30,
+            max_value=20,
             value=2,
-            help="You can choose the maximum sentence count for the summary.",
+            help="You can choose the maximum sentence count to be generated in the summary.",
         )    
 
     with c2:
         doc = st.text_area(
             "Paste your text below (max 500 words)",
-            height=510,
+            height=350,
         )
 
         MAX_WORDS = 500
@@ -97,12 +99,13 @@ with st.form(key="my_form"):
 
             doc = doc[:MAX_WORDS]
 
-        submit_button = st.form_submit_button(label="✨ Get me the data!")
+        submit_button = st.form_submit_button(label="✨ Generate Summary!")
 
 if not submit_button:
     st.stop()    
 
 summary=summary_model.summarize(doc,max_sentence_count=max_sentence_count)              
 
-
+with st.spinner("🔮 Generating summary..."):
+    st.write(summary)
         
