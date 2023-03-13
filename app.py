@@ -4,7 +4,6 @@ from SummaryAPI.services.Summarization import Summarization
 
 st.set_page_config(
     page_title="The Fine Art of Summarization",
-    page_icon="📝",
 )
 
 def _max_width_():
@@ -82,30 +81,31 @@ with st.form(key="my_form"):
 
     with c2:
         doc = st.text_area(
-            "Paste your text below (max 500 words)",
+            "Paste your text below",
             height=350,
         )
 
-        MAX_WORDS = 500
-        import re
-        res = len(re.findall(r"\w+", doc))
-        if res > MAX_WORDS:
-            st.warning(
-                "⚠️ Your text contains "
-                + str(res)
-                + " words."
-                + " Only the first 500 words will be reviewed. Stay tuned as increased allowance is coming! 😊"
-            )
+        # MAX_WORDS = 500
+        # import re
+        # res = len(re.findall(r"\w+", doc))
+        # if res > MAX_WORDS:
+        #     st.warning(
+        #         "⚠️ Your text contains "
+        #         + str(res)
+        #         + " words."
+        #         + " Only the first 500 words will be reviewed. Stay tuned as increased allowance is coming! 😊"
+        #     )
 
-            doc = doc[:MAX_WORDS]
+        #     doc = doc[:MAX_WORDS]
 
         submit_button = st.form_submit_button(label="✨ Generate Summary!")
 
 if not submit_button:
     st.stop()    
 
-summary=summary_model.summarize(doc,max_sentence_count=max_sentence_count)              
-
 with st.spinner("🔮 Generating summary..."):
-    st.write(summary)
+    summary=summary_model.summarize(doc,max_sentence_count=max_sentence_count)  
+    st.markdown("## 📝 Summary")
+    st.success(summary)
+    st.balloons()
         

@@ -30,7 +30,7 @@ class DBConnection:
                     endpoint=endpoint, 
                     credential=ta_credential)
             return text_analytics_client
-        # client = authenticate_client()
+        
     except Exception as e:
         raise Exception(f"Error while authenticating the client: {e}")
 
@@ -53,7 +53,6 @@ class DBConnection:
         Returns:
             DBConnection.__client: It returns the client instance.
         """
-        print(DBConnection.__client)
         return DBConnection.__client
 
 
