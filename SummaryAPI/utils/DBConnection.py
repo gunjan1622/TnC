@@ -1,7 +1,7 @@
 """ Import Important Packages"""
-import streamlit as st
+import os
 #from dotenv import load_dotenv
-#load_dotenv()
+# load_dotenv()
 
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.textanalytics import TextAnalyticsClient
@@ -23,8 +23,8 @@ class DBConnection:
         # Authenticate the client using your key and endpoint 
         @staticmethod
         def authenticate_client():
-            key = st.secrets["API_KEY"]
-            endpoint = st.sectrets["ENDPOINT"]
+            key = os.environ["API_KEY"]
+            endpoint = os.environ["ENDPOINT"]
             ta_credential = AzureKeyCredential(key)
             text_analytics_client = TextAnalyticsClient(
                     endpoint=endpoint, 
