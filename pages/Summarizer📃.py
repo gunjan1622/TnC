@@ -2,10 +2,6 @@ import streamlit as st
 
 from SummaryAPI.services.Summarization import Summarization
 
-st.set_page_config(
-    page_title="The Fine Art of Summarization",
-)
-
 def _max_width_():
     max_width_str = f"max-width: 1400px;"
     st.markdown(
@@ -18,9 +14,9 @@ def _max_width_():
     """,
         unsafe_allow_html=True,
     )
-
-
 _max_width_()
+
+st.sidebar.subheader("Made with ❤️ by [Gunjan Agrawal](https://github.com/gunjan1622)")
 
 c30, c31, c32 = st.columns([50, 1, 3])
 
@@ -108,4 +104,3 @@ with st.spinner("🔮 Generating summary..."):
     st.markdown("## 📝 Summary")
     st.success(summary)
     st.balloons()
-        
