@@ -1,6 +1,8 @@
+import pandas as pd
 import streamlit as st
 
 from SummaryAPI.services.Summarization import Summarization
+from SummaryAPI.utils.rating import insert_rating, get_stats
 
 def _max_width_():
     max_width_str = f"max-width: 1400px;"
@@ -17,6 +19,23 @@ def _max_width_():
 _max_width_()
 
 st.sidebar.subheader("Made with ❤️ by [Gunjan Agrawal](https://github.com/gunjan1622)")
+
+ratings = []
+def star_rating(label, key):
+    rating = st.slider(label, 0, 10, key=key, step=1)
+    return rating
+
+with st.sidebar.form(key='ratings'):
+    rating = star_rating('Rate this app:', 'rating')
+    ratings.append(rating)
+    insert_rating(rating)
+    num_responses, avg_rating = get_stats()    
+    submit_btn=st.form_submit_button(label='Rate')
+
+    if submit_btn:
+        st.sidebar.success("Thanks for your feedback!")
+        st.sidebar.write(f'Number of responses: {num_responses}')
+        st.sidebar.write(f'Average rating: {avg_rating:.2f}')
 
 c30, c31, c32 = st.columns([50, 1, 3])
 
@@ -55,13 +74,13 @@ with st.form(key="my_form"):
 
         if ModelType == "Extractive Summary":
 
-            @st.cache(allow_output_mutation=True)
+            @st.cache_data()
             def load_model():
                 return Summarization(model="Extractive")
             summary_model = load_model()
 
         else:
-            @st.cache(allow_output_mutation=True)
+            @st.cache_data()
             def load_model():
                 return Summarization(model="Abstractive")
             summary_model = load_model()
@@ -80,19 +99,6 @@ with st.form(key="my_form"):
             "Paste your text below",
             height=350,
         )
-
-        # MAX_WORDS = 500
-        # import re
-        # res = len(re.findall(r"\w+", doc))
-        # if res > MAX_WORDS:
-        #     st.warning(
-        #         "⚠️ Your text contains "
-        #         + str(res)
-        #         + " words."
-        #         + " Only the first 500 words will be reviewed. Stay tuned as increased allowance is coming! 😊"
-        #     )
-
-        #     doc = doc[:MAX_WORDS]
 
         submit_button = st.form_submit_button(label="✨ Generate Summary!")
 
