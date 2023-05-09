@@ -4,6 +4,7 @@ import streamlit as st
 from SummaryAPI.services.Summarization import Summarization
 #from SummaryAPI.utils.rating import insert_rating, get_stats
 
+
 def _max_width_():
     max_width_str = f"max-width: 1400px;"
     st.markdown(
@@ -18,24 +19,8 @@ def _max_width_():
     )
 _max_width_()
 
-st.sidebar.subheader("Made with ❤️ by [Gunjan Agrawal](https://github.com/gunjan1622)")
-
-ratings = []
-# def star_rating(label, key):
-#     rating = st.slider(label, 0, 10, key=key, step=1)
-#     return rating
-
-# with st.sidebar.form(key='ratings'):
-#     rating = star_rating('Rate this app:', 'rating')
-#     ratings.append(rating)
-#     insert_rating(rating)
-#     num_responses, avg_rating = get_stats()    
-#     submit_btn=st.form_submit_button(label='Rate')
-
-#     if submit_btn:
-#         st.sidebar.success("Thanks for your feedback!")
-#         st.sidebar.write(f'Number of responses: {num_responses}')
-#         st.sidebar.write(f'Average rating: {avg_rating:.2f}')
+# st.sidebar.subheader("Made with ❤️ by [Gunjan Agrawal](https://github.com/gunjan1622)")
+st.sidebar.markdown("Please rate the generated summary and help us improve!")
 
 c30, c31, c32 = st.columns([50, 1, 3])
 
