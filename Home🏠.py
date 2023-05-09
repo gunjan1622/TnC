@@ -1,33 +1,93 @@
 import streamlit as st
 
-
+# Set page title
 st.set_page_config(
     page_title="TermsBrief",
 )
-st.sidebar.subheader("Made with ❤️ by [Gunjan Agrawal](https://github.com/gunjan1622) and [Hemanth Sai](https.github.com/HemanthSai7)")
-#st.sidebar.markdown("### *Summarizer, a project of my bestie Gunjuuuuu*")
-st.header('TERMSBRIEF')
-st.markdown('Tired of reading those endless **:orange[terms and conditions]** before agreeing to them?')
-#st.markdown(":green[$\sqrt{x^2+y^2}=1$] is a Pythagorean identity. :pencil:")
-col1, col2 = st.columns([1.5, 1])
+
+st.sidebar.image("assets/logo.png")
+
+# Custom CSS styles
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #1F1F1F;
+    }
+    .header {
+        font-size: 48px;
+        font-weight: bold;
+        color: #FF8800;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .subheader {
+        font-size: 32px;
+        color: #FFFFFF;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .text {
+        font-size: 24px;
+        color: #DDDDDD;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .gif {
+        border-radius: 5px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .emoji {
+        width: 100px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .summary {
+        font-size: 24px;
+        color: #FFFFFF;
+        background-color: #FF8800;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin-top: 30px;
+        text-align: center;
+    }
+    .infographic {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Sidebar content
+st.sidebar.subheader("Made with ❤ by [Gunjan Agrawal](https://github.com/gunjan1622) and [Hemanth Sai](https.github.com/HemanthSai7)")
+
+# Main content
+st.markdown('<h1 class="header">Termsbrief</h1>', unsafe_allow_html=True)
+st.markdown('<h2 class="subheader">Tired of reading those endless <strong>terms and conditions</strong> before agreeing to them?</h2>', unsafe_allow_html=True)
+
+# Image and text columns
+col1, col2 = st.columns([1, 1])
 with col1:
-    st.markdown('Agreeing to **:green[terms and conditions]** with your eyes closed?')
+    st.markdown('<p class="text">Agreeing to <strong>terms and conditions</strong> with your eyes closed?</p>', unsafe_allow_html=True)
 with col2:
-    st.image('https://media.tenor.com/TatG54muuNYAAAAi/eyes-looking.gif', width=47)
+    st.image('https://media.tenor.com/TatG54muuNYAAAAi/eyes-looking.gif', width=300, caption='Image source: Tenor')
 
-st.markdown('Without thinking how someone can be stealing your personal information.')
+st.markdown('<p class="text">Without thinking how someone can be stealing your personal information.</p>', unsafe_allow_html=True)
 
-_left, mid, _right = st.columns([0.3, 1, 0.1])
-with mid:
-    st.image('https://media.tenor.com/ZWHGB0dc7koAAAAi/theumbrellaacademy-theumbrellaacademyhazelandchacha.gif', width=170)
+# Image column
+mid_column, _ = st.columns([2, 1])
+with mid_column:
+    st.image('https://media.tenor.com/ZWHGB0dc7koAAAAi/theumbrellaacademy-theumbrellaacademyhazelandchacha.gif', width=400, caption='Image source: Tenor')
 
-col1, col2, col3= st.columns([0.5, 1.5, 0.5])
+# Image and text columns
+col1, col2, col3 = st.columns([1, 2, 1])
 with col1:
-    st.image('https://media.tenor.com/6ceOmdT7SHkAAAAi/emoji-emojis.gif', width=47)
+    st.image('https://media.tenor.com/6ceOmdT7SHkAAAAi/emoji-emojis.gif', width=100, caption='Image source: Tenor')
 with col2:
-    st.markdown('**:orange[Termsbreif  is the perfect tool for making quick, simple summaries of important legal documents.]**')
+    st.markdown('<h2 class="subheader" style="text-align: center">Termsbrief is the perfect tool for making quick, simple summaries of important legal documents.</h2>', unsafe_allow_html=True)
 with col3:
-    st.image('https://media.tenor.com/6ceOmdT7SHkAAAAi/emoji-emojis.gif', width=47)
-
-st.markdown('**:white[Simply  paste your text in the given area and choose the summary option u want,  to create your own summary in seconds. And Voila, u protected urself from someone else governing your personal information.]**')
-
+    st.image('https://media.tenor.com/6ceOmdT7SHkAAAAi/emoji-emojis.gif', width=100, caption='Image source: Tenor')
