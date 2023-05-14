@@ -28,7 +28,7 @@ with st.form("feedback"):
             DBQueries.insert_to_database("Termsbrief","Feedback",feedback.dict())
 st.markdown("Thank you for your feedback! 🙏")
 
-st.sidebar.success(f"Average Rating : {DBQueries.retrieve_average_rating('Termsbrief')} 🌟")
+st.sidebar.success(f"Average Rating : {DBQueries.retrieve_average_rating('Termsbrief'):.2f} 🌟")
 
 if not submit_button:
     st.stop()
