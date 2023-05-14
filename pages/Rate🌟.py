@@ -1,6 +1,8 @@
 import streamlit as st
 from trubrics.integrations.streamlit import FeedbackCollector
 
+from SummaryAPI.utils.DBQueries import DBQueries
+
 st.title("Termbrief Feedback 🌟")
 st.markdown("Feedback is a gift. Please help us improve Termbrief by sharing your thoughts. 🤗")
 
@@ -21,10 +23,12 @@ with st.form("feedback"):
                     "How can we improve the app?":q3,
                     "Raise a specific issue":q4
                 },
-                path="./feedback.json",
+                path=None
             )
-            feedback.dict() if feedback else None 
+            DBQueries.insert_to_database("Termsbrief","Feedback",feedback.dict())
 st.markdown("Thank you for your feedback! 🙏")
+
+st.sidebar.success(f"Average Rating : {DBQueries.retrieve_average_rating('Termsbrief')} 🌟")
 
 if not submit_button:
     st.stop()
